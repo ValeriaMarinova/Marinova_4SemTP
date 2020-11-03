@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AbstractFactoryListImplement.Implements
-{   
+{
     public class OrderLogic : IOrderLogic
     {
         private readonly DataListSingleton source;
