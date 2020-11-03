@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractFactoryListImplemen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractFactoryFileImplement", "AbstractFactoryFileImplement\AbstractFactoryFileImplement.csproj", "{D344F0C1-09B4-430A-AC7B-DC85EE542EA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractFactoryDatabaseImplement", "AbstractFactoryDatabaseImplement\AbstractFactoryDatabaseImplement.csproj", "{93B76FFA-43B7-4CC3-A277-3652918CCE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D344F0C1-09B4-430A-AC7B-DC85EE542EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D344F0C1-09B4-430A-AC7B-DC85EE542EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D344F0C1-09B4-430A-AC7B-DC85EE542EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B76FFA-43B7-4CC3-A277-3652918CCE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B76FFA-43B7-4CC3-A277-3652918CCE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B76FFA-43B7-4CC3-A277-3652918CCE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B76FFA-43B7-4CC3-A277-3652918CCE95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
