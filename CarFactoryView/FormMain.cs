@@ -5,8 +5,15 @@ using AbstractFactoryBusinessLogic.ViewModels;
 using System;
 using System.Windows.Forms;
 using Unity;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using CarFactoryView;
 
-namespace CarFactoryView
+namespace AbstractCarFactoryView
 {
     public partial class FormMain : Form
     {
@@ -14,11 +21,13 @@ namespace CarFactoryView
         public new IUnityContainer Container { get; set; }
         private readonly MainLogic logic;
         private readonly IOrderLogic orderLogic;
+        private readonly ReportLogic report;
 
-        public FormMain(MainLogic logic, IOrderLogic orderLogic)
+        public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report)
         {
             InitializeComponent();
             this.logic = logic;
+            this.report = report;
             this.orderLogic = orderLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
@@ -118,6 +127,32 @@ namespace CarFactoryView
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+        private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveAutoPartsToWordFile(new ReportBindingModel
+                    {
+                        FileName =
+                   dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
+                }
+            }
+        }
+        private void ComponentProductsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportProductAutoParts>();
+            form.ShowDialog();
+        }
+        private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
         }
     }
 }
