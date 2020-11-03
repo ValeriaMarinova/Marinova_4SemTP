@@ -143,5 +143,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AbstractFactoryBusinessLogic\AbstractFactoryBusinessLogic.csproj">
+      <Project>{5a4dce8b-56b9-437c-92cc-4f517fe37e05}</Project>
+      <Name>AbstractFactoryBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AbstractFactoryListImplement\AbstractFactoryListImplement.csproj">
+      <Project>{c7992e41-32e1-4100-a075-0414011d3385}</Project>
+      <Name>AbstractFactoryListImplement</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

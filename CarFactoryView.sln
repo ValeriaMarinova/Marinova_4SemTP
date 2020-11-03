@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarFactoryView", "CarFactoryView\CarFactoryView.csproj", "{EEF2C9DD-7E1F-4763-8E82-E8E908EA98E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractFactoryBusinessLogic", "AbstractFactoryBusinessLogic\AbstractFactoryBusinessLogic.csproj", "{5A4DCE8B-56B9-437C-92CC-4F517FE37E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractFactoryListImplement", "AbstractFactoryListImplement\AbstractFactoryListImplement.csproj", "{C7992E41-32E1-4100-A075-0414011D3385}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EEF2C9DD-7E1F-4763-8E82-E8E908EA98E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEF2C9DD-7E1F-4763-8E82-E8E908EA98E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEF2C9DD-7E1F-4763-8E82-E8E908EA98E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A4DCE8B-56B9-437C-92CC-4F517FE37E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4DCE8B-56B9-437C-92CC-4F517FE37E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4DCE8B-56B9-437C-92CC-4F517FE37E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4DCE8B-56B9-437C-92CC-4F517FE37E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7992E41-32E1-4100-A075-0414011D3385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7992E41-32E1-4100-A075-0414011D3385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7992E41-32E1-4100-A075-0414011D3385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7992E41-32E1-4100-A075-0414011D3385}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
