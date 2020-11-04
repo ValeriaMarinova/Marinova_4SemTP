@@ -35,6 +35,8 @@ namespace AbstractFactoryDatabaseImplement.Implements
                 element.Count = model.Count;
                 element.DateCreate = model.DateCreate;
                 element.DateImplement = model.DateImplement;
+                element.ClientId = model.ClientId.Value;
+                element.ImplementerId = model.ImplementerId;
                 element.Status = model.Status;
                 element.Sum = model.Sum;
                 context.SaveChanges();
@@ -60,22 +62,27 @@ namespace AbstractFactoryDatabaseImplement.Implements
         {
             using (var context = new AbstractFactoryDatabase())
             {
-                return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
-                  .Include(rec => rec.Product)
-                .Include(rec => rec.Client)
+                return context.Orders.Where(rec => model == null
+                    || rec.Id == model.Id && model.Id.HasValue
+                    || model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo
+                    || model.ClientId.HasValue && rec.ClientId == model.ClientId
+                    || model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue
+                    || model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ClientId = rec.ClientId,
+                    ImplementerId = rec.ImplementerId,
                     ProductId = rec.ProductId,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    ProductName = rec.Product.ProductName,
-                    ClientFIO = rec.Client.ClientFIO
+                    Status = rec.Status,
+                    Count = rec.Count,
+                    Sum = rec.Sum,
+                    ClientFIO = rec.Client.ClientFIO,
+                    ImplementerFIO = rec.ImplementerId.HasValue ?
+                rec.Implementer.ImplementerFIO : string.Empty,
+                    ProductName = rec.Product.ProductName
                 })
                 .ToList();
             }
