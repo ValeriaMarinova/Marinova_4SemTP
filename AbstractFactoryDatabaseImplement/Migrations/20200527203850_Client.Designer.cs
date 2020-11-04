@@ -4,14 +4,16 @@ using AbstractFactoryDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AbstractFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(AbstractFactoryDatabase))]
-    partial class AbstractFactoryDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200527203850_Client")]
+    partial class Client
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,54 +61,6 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.Implementer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImplementerFIO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PauseTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkingTime")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Implementers");
-                });
-
-            modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.MessageInfo", b =>
-                {
-                    b.Property<string>("MessageId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateDelivery")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SenderName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MessageId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("MessageInfoes");
-                });
-
             modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -114,7 +68,7 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
@@ -125,9 +79,6 @@ namespace AbstractFactoryDatabaseImplement.Migrations
 
                     b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ImplementerId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -141,8 +92,6 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("ImplementerId");
 
                     b.HasIndex("ProductId");
 
@@ -193,24 +142,11 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                     b.ToTable("ProductAutoParts");
                 });
 
-            modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.MessageInfo", b =>
-                {
-                    b.HasOne("AbstractFactoryDatabaseImplement.Models.Client", "Client")
-                        .WithMany("MessageInfoes")
-                        .HasForeignKey("ClientId");
-                });
-
             modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("AbstractFactoryDatabaseImplement.Models.Client", "Client")
+                    b.HasOne("AbstractFactoryDatabaseImplement.Models.Client", null)
                         .WithMany("Orders")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AbstractFactoryDatabaseImplement.Models.Implementer", "Implementer")
-                        .WithMany("Orders")
-                        .HasForeignKey("ImplementerId");
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("AbstractFactoryDatabaseImplement.Models.Product", "Product")
                         .WithMany("Orders")

@@ -4,14 +4,16 @@ using AbstractFactoryDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AbstractFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(AbstractFactoryDatabase))]
-    partial class AbstractFactoryDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200528191626_Implementer")]
+    partial class Implementer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,33 +80,6 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Implementers");
-                });
-
-            modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.MessageInfo", b =>
-                {
-                    b.Property<string>("MessageId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateDelivery")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SenderName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MessageId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("MessageInfoes");
                 });
 
             modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.Order", b =>
@@ -191,13 +166,6 @@ namespace AbstractFactoryDatabaseImplement.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductAutoParts");
-                });
-
-            modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.MessageInfo", b =>
-                {
-                    b.HasOne("AbstractFactoryDatabaseImplement.Models.Client", "Client")
-                        .WithMany("MessageInfoes")
-                        .HasForeignKey("ClientId");
                 });
 
             modelBuilder.Entity("AbstractFactoryDatabaseImplement.Models.Order", b =>
