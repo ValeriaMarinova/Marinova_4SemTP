@@ -3,31 +3,45 @@ using AbstractFactoryBusinessLogic.BusinessLogics;
 using AbstractFactoryBusinessLogic.Interfaces;
 using AbstractFactoryBusinessLogic.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 
-namespace CarFactoryView
+namespace AbstractCarFactoryView
 {
     public partial class FormCreateOrder : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        private readonly IProductLogic logicP;
+        private readonly IProductLogic logicS;
+        private readonly IClientLogic logicC;
         private readonly MainLogic logicM;
-        public FormCreateOrder(IProductLogic logicP, MainLogic logicM)
+        public FormCreateOrder(IProductLogic logicS, IClientLogic logicC, MainLogic logicM)
         {
             InitializeComponent();
-            this.logicP = logicP;
+            this.logicS = logicS;
+            this.logicC = logicC;
             this.logicM = logicM;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
             try
             {
-                var list = logicP.Read(null);
+                var list = logicS.Read(null);
                 comboBoxProduct.DataSource = list;
                 comboBoxProduct.DisplayMember = "ProductName";
                 comboBoxProduct.ValueMember = "Id";
+                var listC = logicC.Read(null);
+                comboBoxClient.DisplayMember = "ClientFIO";
+                comboBoxClient.ValueMember = "Id";
+                comboBoxClient.DataSource = listC;
+                comboBoxClient.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -35,21 +49,16 @@ namespace CarFactoryView
                MessageBoxIcon.Error);
             }
         }
-
         private void CalcSum()
         {
-            if (comboBoxProduct.SelectedValue != null &&
-           !string.IsNullOrEmpty(textBoxCount.Text))
+            if (comboBoxProduct.SelectedValue != null && !string.IsNullOrEmpty(textBoxCount.Text))
             {
                 try
                 {
                     int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
-                    ProductViewModel product = logicP.Read(new ProductBindingModel
-                    {
-                        Id = id
-                    })?[0];
+                    ProductViewModel Product = logicS.Read(new ProductBindingModel { Id = id })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product?.Price ?? 0).ToString();
+                    textBoxSum.Text = (count * Product?.Price ?? 0).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -85,21 +94,21 @@ namespace CarFactoryView
                 logicM.CreateOrder(new CreateOrderBindingModel
                 {
                     ProductId = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-               MessageBoxButtons.OK, MessageBoxIcon.Information);
+              MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBoxIcon.Error);
             }
         }
-
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

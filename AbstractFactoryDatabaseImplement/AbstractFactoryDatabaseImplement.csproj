@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AbstractFactoryBusinessLogic\AbstractFactoryBusinessLogic.csproj" />
+    <ProjectReference Include="..\AbstractFactoryListImplement\AbstractFactoryListImplement.csproj" />
   </ItemGroup>
 
 </Project>

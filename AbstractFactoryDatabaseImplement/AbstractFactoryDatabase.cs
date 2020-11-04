@@ -1,6 +1,6 @@
 ﻿using AbstractFactoryDatabaseImplement.Models;
+using AbstractFactoryListImplement.Models;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace AbstractFactoryDatabaseImplement
 {
@@ -19,5 +19,6 @@ namespace AbstractFactoryDatabaseImplement
         public virtual DbSet<Product> Products { set; get; }
         public virtual DbSet<ProductAutoPart> ProductAutoParts { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
+        public virtual DbSet<Client> Clients { set; get; }
     }
 }

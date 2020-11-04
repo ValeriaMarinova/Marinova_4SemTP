@@ -47,7 +47,6 @@ namespace AbstractFactoryListImplement.Implements
         }
         public void Delete(ProductBindingModel model)
         {
-            // удаляем записи по компонентам при удалении изделия
             for (int i = 0; i < source.ProductAutoParts.Count; ++i)
             {
                 if (source.ProductAutoParts[i].ProductId == model.Id)
@@ -69,7 +68,6 @@ namespace AbstractFactoryListImplement.Implements
         {
             product.ProductName = model.ProductName;
             product.Price = model.Price;
-            //обновляем существуюущие компоненты и ищем максимальный идентификатор
             int maxPCId = 0;
             for (int i = 0; i < source.ProductAutoParts.Count; ++i)
             {
@@ -79,14 +77,11 @@ namespace AbstractFactoryListImplement.Implements
                 }
                 if (source.ProductAutoParts[i].ProductId == product.Id)
                 {
-                    // если в модели пришла запись компонента с таким id
                     if
                     (model.ProductAutoParts.ContainsKey(source.ProductAutoParts[i].AutoPartId))
                     {
-                        // обновляем количество
                         source.ProductAutoParts[i].Count =
                         model.ProductAutoParts[source.ProductAutoParts[i].AutoPartId].Item2;
-                        // из модели убираем эту запись, чтобы остались только не просмотренные
                         model.ProductAutoParts.Remove(source.ProductAutoParts[i].AutoPartId);
                     }
                     else
@@ -95,7 +90,6 @@ namespace AbstractFactoryListImplement.Implements
                     }
                 }
             }
-            // новые записи
             foreach (var pc in model.ProductAutoParts)
             {
                 source.ProductAutoParts.Add(new ProductAutoPart
@@ -128,7 +122,6 @@ namespace AbstractFactoryListImplement.Implements
         }
         private ProductViewModel CreateViewModel(Product product)
         {
-            // требуется дополнительно получить список компонентов для изделия с названиями и их количество
             Dictionary<int, (string, int)> productAutoParts = new Dictionary<int, (string, int)>();
             foreach (var pc in source.ProductAutoParts)
             {

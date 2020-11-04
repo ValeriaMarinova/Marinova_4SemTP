@@ -1,4 +1,4 @@
-﻿namespace CarFactoryView
+﻿namespace AbstractCarFactoryView
 {
     partial class FormCreateOrder
     {

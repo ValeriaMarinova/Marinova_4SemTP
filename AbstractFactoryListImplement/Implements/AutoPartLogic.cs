@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using AbstractFactoryBusinessLogic.BindingModels;
 using AbstractFactoryBusinessLogic.Interfaces;
 using AbstractFactoryBusinessLogic.ViewModels;
-using System;
+using System;
+
 namespace AbstractFactoryListImplement.Implements
 {
     public class AutoPartLogic : IAutoPartLogic
