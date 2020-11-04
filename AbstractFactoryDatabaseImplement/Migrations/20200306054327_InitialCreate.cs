@@ -98,7 +98,8 @@ namespace AbstractFactoryDatabaseImplement.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductAutoParts_ProductId",
                 table: "ProductAutoParts",
-                column: "ProductId");
+                column: "ProductId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,12 +1,13 @@
 ﻿using System;
 using AbstractFactoryBusinessLogic.BindingModels;
 using AbstractFactoryBusinessLogic.Enums;
+using AbstractFactoryBusinessLogic.HelperModels;
 using AbstractFactoryBusinessLogic.Interfaces;
 
 namespace AbstractFactoryBusinessLogic.BusinessLogics
 {
-   public  class MainLogic
-   {
+    public class MainLogic
+    {
         private readonly IOrderLogic orderLogic;
         public MainLogic(IOrderLogic orderLogic)
         {
@@ -17,6 +18,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 ProductId = model.ProductId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
@@ -25,10 +27,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = orderLogic.Read(new OrderBindingModel
-            {
-                Id = model.OrderId
-            })?[0];
+            var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId })?[0];
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -40,6 +39,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ProductId = order.ProductId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -50,10 +50,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            var order = orderLogic.Read(new OrderBindingModel
-            {
-                Id = model.OrderId
-            })?[0];
+            var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId })?[0];
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -65,6 +62,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ProductId = order.ProductId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -75,10 +73,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {
-            var order = orderLogic.Read(new OrderBindingModel
-            {
-                Id = model.OrderId
-            })?[0];
+            var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId })?[0];
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -90,6 +85,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 ProductId = order.ProductId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -98,5 +94,5 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
                 Status = OrderStatus.Оплачен
             });
         }
-   }
+    }
 }

@@ -11,7 +11,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using CarFactoryView;
 
 namespace AbstractCarFactoryView
 {
@@ -22,7 +21,6 @@ namespace AbstractCarFactoryView
         private readonly MainLogic logic;
         private readonly IOrderLogic orderLogic;
         private readonly ReportLogic report;
-
         public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report)
         {
             InitializeComponent();
@@ -44,7 +42,8 @@ namespace AbstractCarFactoryView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[3].Visible = false;
+                    dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -53,12 +52,12 @@ namespace AbstractCarFactoryView
                MessageBoxIcon.Error);
             }
         }
-        private void КомпонентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void частиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormAutoParts>();
             form.ShowDialog();
         }
-        private void ИзделияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void изделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormProducts>();
             form.ShowDialog();
@@ -87,7 +86,6 @@ namespace AbstractCarFactoryView
             }
         }
         private void ButtonOrderReady_Click(object sender, EventArgs e)
-
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
@@ -128,13 +126,13 @@ namespace AbstractCarFactoryView
         {
             LoadData();
         }
-        private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокЧастейToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    report.SaveAutoPartsToWordFile(new ReportBindingModel
+                    report.SaveProductsToWordFile(new ReportBindingModel
                     {
                         FileName =
                    dialog.FileName
@@ -144,14 +142,19 @@ namespace AbstractCarFactoryView
                 }
             }
         }
-        private void ComponentProductsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+        private void изделияПоЧастямToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportProductAutoParts>();
             form.ShowDialog();
         }
-        private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportOrders>();
+            var form = Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }

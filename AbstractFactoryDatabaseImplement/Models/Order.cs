@@ -9,6 +9,7 @@ namespace AbstractFactoryDatabaseImplement.Models
     public class Order
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public int ProductId { get; set; }
         [Required]
         public int Count { get; set; }
@@ -20,5 +21,6 @@ namespace AbstractFactoryDatabaseImplement.Models
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
         public virtual Product Product { get; set; }
+        public Client Client { get; set; }
     }
 }

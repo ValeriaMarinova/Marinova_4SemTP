@@ -1,7 +1,7 @@
 ﻿using AbstractFactoryBusinessLogic.BindingModels;
+using AbstractFactoryBusinessLogic.Enums;
 using AbstractFactoryBusinessLogic.Interfaces;
 using AbstractFactoryBusinessLogic.ViewModels;
-using AbstractFactoryFileImplement;
 using AbstractFactoryFileImplement.Models;
 using System;
 using System.Collections.Generic;
@@ -58,11 +58,11 @@ namespace AbstractFactoryFileImplement.Implements
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             return source.Orders
-            .Where(rec => model == null || rec.Id == model.Id)
+            .Where(rec => model == null || rec.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
             .Select(rec => new OrderViewModel
             {
                 Id = rec.Id,
-                ProductName = source.Products.FirstOrDefault(x => x.Id == rec.ProductId)?.ProductName,
+                ProductName = GetProductName(rec.ProductId),
                 Count = rec.Count,
                 Sum = rec.Sum,
                 Status = rec.Status,
@@ -70,6 +70,13 @@ namespace AbstractFactoryFileImplement.Implements
                 DateImplement = rec.DateImplement
             })
             .ToList();
+        }
+        private string GetProductName(int id)
+        {
+            string name = "";
+            var Product = source.Products.FirstOrDefault(x => x.Id == id);
+            name = Product != null ? Product.ProductName : "";
+            return name;
         }
     }
 }
