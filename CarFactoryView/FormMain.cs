@@ -22,13 +22,15 @@ namespace AbstractCarFactoryView
         private readonly IOrderLogic orderLogic;
         private readonly WorkModeling work;
         private readonly ReportLogic report;
-        public FormMain(MainLogic logic, IOrderLogic orderLogic, WorkModeling work, ReportLogic report)
+        private readonly BackUpAbstractLogic backUpAbstractLogic;
+        public FormMain(MainLogic logic, IOrderLogic orderLogic, WorkModeling work, ReportLogic report, BackUpAbstractLogic backUpAbstractLogic)
         {
             InitializeComponent();
             this.logic = logic;
             this.report = report;
             this.work = work;
             this.orderLogic = orderLogic;
+            this.backUpAbstractLogic = backUpAbstractLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -38,17 +40,7 @@ namespace AbstractCarFactoryView
         {
             try
             {
-                var list = orderLogic.Read(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[5].Visible = false;
-                    dataGridView.Columns[5].AutoSizeMode =
-                   DataGridViewAutoSizeColumnMode.Fill;
-                }
+                Program.ConfigGrid(orderLogic.Read(null), dataGridView);
             }
             catch (Exception ex)
             {
@@ -56,6 +48,7 @@ namespace AbstractCarFactoryView
                MessageBoxIcon.Error);
             }
         }
+
         private void частиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormAutoParts>();
@@ -103,7 +96,7 @@ namespace AbstractCarFactoryView
         {
             LoadData();
         }
-        private void списокЧастейToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокИзделийToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
@@ -138,7 +131,27 @@ namespace AbstractCarFactoryView
         {
             var form = Container.Resolve<FormMessages>();
             form.ShowDialog();
-
+        }
+        private void создатьБэкапToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (backUpAbstractLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        backUpAbstractLogic.CreateArchive(fbd.SelectedPath);
+                        MessageBox.Show("Бекап создан", "Сообщение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
     }
 }

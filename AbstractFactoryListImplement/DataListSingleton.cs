@@ -31,4 +31,3 @@ namespace AbstractFactoryListImplement
         }
     }
 }
-© 2020 GitHub, In
