@@ -25,7 +25,7 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
             rnd = new Random(1000);
         }
 
-        /// Запуск работ
+
         public void DoWork()
         {
             var implementers = implementerLogic.Read(null);
@@ -35,25 +35,36 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
                 WorkerWorkAsync(implementer, orders);
             }
         }
+
         /// Иммитация работы исполнителя
         private async void WorkerWorkAsync(ImplementerViewModel implementer, List<OrderViewModel> orders)
         {
-            // ищем заказы, которые уже в работе (вдруг исполнителя прервали)
+
+
+        private async void WorkerWorkAsync(ImplementerViewModel implementer, List<OrderViewModel> orders)
+        {
+
             var runOrders = await Task.Run(() => orderLogic.Read(new OrderBindingModel { ImplementerId = implementer.Id }));
 
             foreach (var order in runOrders)
             {
+
                 // делаем работу заново
                 Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
                 mainLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
 
                 // отдыхаем
+
+                Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                mainLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+
                 Thread.Sleep(implementer.PauseTime);
             }
             await Task.Run(() =>
             {
                 foreach (var order in orders)
                 {
+
                     // пытаемся назначить заказ на исполнителя
                     try
                     {
@@ -64,6 +75,13 @@ namespace AbstractFactoryBusinessLogic.BusinessLogics
                         mainLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
 
                         // отдыхаем
+
+                    try
+                    {
+                        mainLogic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = order.Id, ImplementerId = implementer.Id });
+                        Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                        mainLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+
                         Thread.Sleep(implementer.PauseTime);
                     }
                     catch (Exception) { }
