@@ -290,6 +290,10 @@
       <Project>{5a4dce8b-56b9-437c-92cc-4f517fe37e05}</Project>
       <Name>AbstractFactoryBusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AbstractFactoryClientView\AbstractFactoryClientView.csproj">
+      <Project>{5a0173b9-de06-45b2-8428-04612159e5ce}</Project>
+      <Name>AbstractFactoryClientView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AbstractFactoryDatabaseImplement\AbstractFactoryDatabaseImplement.csproj">
       <Project>{93b76ffa-43b7-4cc3-a277-3652918cce95}</Project>
       <Name>AbstractFactoryDatabaseImplement</Name>
@@ -301,6 +305,10 @@
     <ProjectReference Include="..\AbstractFactoryListImplement\AbstractFactoryListImplement.csproj">
       <Project>{c7992e41-32e1-4100-a075-0414011d3385}</Project>
       <Name>AbstractFactoryListImplement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AbstractFactoryRestApi\AbstractFactoryRestApi.csproj">
+      <Project>{875df1d7-df20-4af6-ae44-981cae368a28}</Project>
+      <Name>AbstractFactoryRestApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
