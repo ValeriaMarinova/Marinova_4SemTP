@@ -4,14 +4,16 @@ using AbstractFactoryDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AbstractFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(AbstractFactoryDatabase))]
-    partial class AbstractFactoryDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200529064557_MessageInfo")]
+    partial class MessageInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
